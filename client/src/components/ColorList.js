@@ -51,7 +51,7 @@ const ColorList = (props) => {
 
   return (
     <div className="colors-wrap">
-      <p>colors</p>
+      <h3>colors</h3>
       <ul>
         {colors.map(color => (
           <li key={color.color} onClick={() => editColor(color)}>
@@ -103,7 +103,7 @@ const ColorList = (props) => {
         </form>
       )}
     
-      <div className="spacer" />
+      <div/>
       <form onSubmit={addColor}>
           <legend>add a new color</legend>
           <label>
