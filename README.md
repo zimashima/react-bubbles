@@ -29,9 +29,45 @@ In this project you will create a login page and request a token from the server
 Demonstrate your understanding of this Sprint's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 - [ ] Explain what a token is used for.
+
+--------------------------
+	Token is a string of cryptic text that is issued by server and can be stored in localSotrage. Since it is issued by server, it grants authorization to access make changes to database to the user. It is a way of securing data. If the user do not have the token, they may not be able to access certain data, let alone making any changes.  
+
+--------------------------
+
 - [ ] What steps can you take in your web apps to keep your data secure?
+
+--------------------------
+	The main idea here is to use Token. Once the server issues and return the token to authenticated users, two layers of protection can be added as below:
+		a. Use protected/private routes to access certain data
+		b. Add token to authentication header when making API calls
+
+--------------------------
+
 - [ ] Describe how web servers work.
+
+--------------------------
+	Web Servers can either refer to a computer that store information or the program that runs on the computer and these terms can be used interchangeably.
+	
+	The purpose of a web server is to store web pages that is to be retrieved by a user when a request is made.  When a user makes a request by typing in a URL in the browser, somewhere along the network recognizes the IP address of that URL, and will point to the correct server where the information is stored. The server then returns the information in which the browser receives, and displays the data to the user.
+
+--------------------------
+
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
+
+--------------------------
+
+	CRUD or is an acronym for database operations. Four letters stand for Create, Read, Update, and Delete.
+	
+	All of the acronym can be mapped with HTTP method as below:
+	
+	Create : POST - we use POST to create a new record
+	Read: GET - we use GET to read/ retrieve information from database
+	Update: PUT - we use this method to change existing information
+	Delete: DELETE - we use this to delete or destroy date. The server is instructed to removed data when DELETE is called.
+
+--------------------------
+
 
 
 ## Project Set Up

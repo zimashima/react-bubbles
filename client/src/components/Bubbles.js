@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { Pack } from "@potion/layout";
-import { Svg, Circle } from "@potion/element";
+import { Svg, Circle, Area} from "@potion/element";
+import { axiosWithAuth } from "./utils/axiosWithAuth";
 
-const Bubbles = ({ colors }) => {
+const Bubbles = (props) => {
   const [bubbleData, setBubbleData] = useState([]);
   useEffect(() => {
-    const generateBubbleData = colors.map((_, i) => ({
-      value: Math.floor(Math.random() * (colors.length * 2)) + 1,
+    const generateBubbleData = props.colors.map((_, i) => ({
+      value: Math.floor(Math.random() * (props.colors.length * 2)) + 1,
       key: `${i + 1}`
     }));
     setBubbleData(generateBubbleData);
-  }, [colors]);
+  }, [props.colors]);
+
+  const shuffle = e => {
+    e.preventDefault()
+    axiosWithAuth().get('/colors').then(res=> props.setColors(res.data))
+  }
 
   return (
     <div className="bubble-wrap">
-      <p>bubbles</p>
+      <h3>bubbles</h3>
+      
       <Svg width={400} height={400}>
+        
         <Pack
+        
           data={{
             children: bubbleData
           }}
@@ -29,14 +38,14 @@ const Bubbles = ({ colors }) => {
           {nodes =>
             nodes
               .map(({ x, y, r, key }, i) => {
-                if (i < colors.length) {
+                if (i < props.colors.length) {
                   return (
                     <Circle
                       key={key}
                       cx={x}
                       cy={y}
                       r={r}
-                      fill={colors[i].code.hex}
+                      fill={props.colors[i].code.hex}
                     />
                   );
                 }
@@ -46,6 +55,7 @@ const Bubbles = ({ colors }) => {
           }
         </Pack>
       </Svg>
+      <button className="btn btn-dark" onClick={shuffle}>Shuffle</button>
     </div>
   );
 };
