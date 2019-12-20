@@ -12,6 +12,19 @@ const ColorList = (props) => {
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
 
+  //stretch add
+  const [adding, setAdding] = useState(false);
+  const [colorToAdd, setColorToAdd] = useState(initialColor);
+
+  const addColor = e =>{
+    e.preventDefault();
+    axiosWithAuth().post('/colors', colorToAdd).then(res => {
+      axiosWithAuth().get('/colors').then(res => updateColors(res.data))
+      setColorToAdd(initialColor)
+      setAdding(false)
+    })
+  }
+
 
   const editColor = color => {
     setEditing(true);
@@ -89,8 +102,36 @@ const ColorList = (props) => {
           </div>
         </form>
       )}
+    
       <div className="spacer" />
-      {/* stretch - build another form here to add a color */}
+      <form onSubmit={addColor}>
+          <legend>add a new color</legend>
+          <label>
+            color name:
+            <input
+              onChange={e =>
+                setColorToAdd({ ...colorToAdd, color: e.target.value })
+              }
+              value={colorToAdd.color}
+            />
+          </label>
+          <label>
+            hex code:
+            <input
+              onChange={e =>
+                setColorToAdd({
+                  ...colorToAdd,
+                  code: { hex: e.target.value }
+                })
+              }
+              value={colorToAdd.code.hex}
+            />
+          </label>
+          <div className="button-row">
+            <button type="submit">add</button>
+            <button onClick={() => setColorToAdd(initialColor)}>cancel</button>
+          </div>
+        </form>
     </div>
   );
 };
