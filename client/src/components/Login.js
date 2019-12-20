@@ -20,7 +20,7 @@ const Login = (props) => {
       .post('/login', credentials)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        props.history.push('/FriendList')
+        props.history.push('/BubblePage')
         })
       .catch(err=> console.log(err))
   }
